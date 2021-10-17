@@ -1,29 +1,25 @@
 import {
-  Box,
   Button,
-  chakra,
   Container,
-  Link,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
+  Flex,
+  Image,
+  Text,
   useColorModeValue,
 } from "@chakra-ui/react"
-import { useBreakpointValue } from "@chakra-ui/react"
-import { Flex, Text, Image } from "@chakra-ui/react"
-import { StaticImage } from "gatsby-plugin-image"
-import React, { useState } from "react"
+import React from "react"
+import { useDispatch } from "react-redux"
+import { bindActionCreators } from "redux"
+import { actionCreators } from "../../store/actions"
 
 const Card = ({ id, title, description, price, category, imagePath }) => {
+  const dispatch = useDispatch()
+  const { AddToCart } = bindActionCreators(actionCreators, dispatch)
   return (
     <Flex p={4} alignItems="center">
-      <Flex w="80%" rounded={"md"}>
+      <Flex w="80%">
         <Image
           rounded={"lg"}
-          height={230}
-          width={282}
+          width={[202, 222, 242, 262, 282]}
           objectFit={"contain"}
           src={imagePath}
         />
@@ -46,7 +42,7 @@ const Card = ({ id, title, description, price, category, imagePath }) => {
             {title}
           </Text>
           <Text fontWeight="600" fontSize="lg">
-            Price: ${price}
+            Price: ₦{price}
           </Text>
           <Text
             fontSize="sm"
@@ -69,6 +65,9 @@ const Card = ({ id, title, description, price, category, imagePath }) => {
           }}
           _focus={{
             bg: "gray.400",
+          }}
+          onClick={() => {
+            AddToCart(id)
           }}
         >
           Add to cart

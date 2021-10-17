@@ -10,7 +10,7 @@ enum CART_ACTIONS {
 const INITIAL_STATE = {
   products: shopData,
   cart: [
-    {
+    /* {
       id: 1,
       imagePath: "/boostersm.jpg",
       category: "Special Mix",
@@ -37,7 +37,7 @@ const INITIAL_STATE = {
       oldPrice: "121",
       newPrice: "90",
       description: "Sexual stimulant to boost ones sex drive.",
-    },
+    }, */
   ],
   currentItem: null,
 }
@@ -51,20 +51,12 @@ export const ShopReducer = (state = INITIAL_STATE, action) => {
       const inCart = state.cart.find(item =>
         item.id === action.payload.id ? true : false
       )
-      console.log(action.payload.color)
 
       return {
         ...state,
         cart: inCart
           ? state.cart.map(item =>
-              item.id === action.payload.id
-                ? item.color === action.payload.color
-                  ? {
-                      ...item,
-                      qty: item.qty + 1,
-                    }
-                  : item
-                : item
+              item.id === action.payload.id ? { ...item, qty: 1 } : item
             )
           : [...state.cart, { ...item, qty: 1 }],
       }

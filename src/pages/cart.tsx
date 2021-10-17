@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import {
   Flex,
   Link as ChakraLink,
@@ -23,17 +23,61 @@ import {
   Divider,
   HStack,
   Button,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
 } from "@chakra-ui/react"
 import { AiFillEdit } from "@react-icons/all-files/ai/AiFillEdit"
 import { BsBoxArrowUpRight } from "@react-icons/all-files/bs/BsBoxArrowUpRight"
 import { BsFillTrashFill } from "@react-icons/all-files/bs/BsFillTrashFill"
 import CartItem from "../components/cart-item"
 import { Link as GatsbyLink } from "gatsby"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import Item from "../components/item"
+import { actionCreators } from "../store/actions"
+import { bindActionCreators } from "redux"
+import Checkout from "../components/Checkout"
+import CheckoutForm from "../components/checkoutform"
 
 export default function Component() {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const dispatch = useDispatch()
+  const { RemoveFromCart, AdjustQuantity } = bindActionCreators(
+    actionCreators,
+    dispatch
+  )
+  const [input, setInput] = useState(1)
+  const [totalItems, setTotalItems] = useState(0)
+  const [totalPrice, setTotalPrice] = useState(0)
   const cart = useSelector((state: any) => state.shop.cart)
+
+  const onChangeHandler = (e, itemId) => {
+    setInput(e)
+    AdjustQuantity(itemId, e)
+  }
+
+  useEffect(() => {
+    let price = 0
+    let items = totalPrice === 0 ? 0 : 1
+    cart.forEach((item, index) => {
+      items += index
+      price += parseFloat(item.newPrice)
+    })
+
+    setTotalItems(items)
+    setTotalPrice(price)
+  }, [
+    cart,
+    totalItems,
+    setTotalItems,
+    totalPrice,
+    setTotalPrice,
+    RemoveFromCart,
+  ])
   return (
     <Flex
       w="100%"
@@ -50,20 +94,24 @@ export default function Component() {
       >
         <Thead>
           <Tr>
+            <Th fontWeight="600">TITLE</Th>
             <Th fontWeight="600">ITEM</Th>
-            <Th fontWeight="600">QUANTITY</Th>
+            {/* <Th fontWeight="600">QUANTITY</Th> */}
             <Th fontWeight="600" isNumeric>
               PRICE
             </Th>
-            <Th fontWeight="600" isNumeric>
+            {/*  <Th fontWeight="600" isNumeric>
               TOTAL
-            </Th>
+            </Th> */}
           </Tr>
         </Thead>
         <Tbody>
           {cart.map((item, index) => {
             return (
               <Tr>
+                <Td textTransform="uppercase" fontWeight="500">
+                  {item.title}
+                </Td>
                 <Td>
                   <CartItem
                     id={item.id}
@@ -76,17 +124,38 @@ export default function Component() {
                     quantity={item.qty}
                   />
                 </Td>
-                <Td>
-                  <NumberInput size="xs" maxW={16} defaultValue={1} min={1}>
+                {/*  <Td>
+                  <NumberInput
+                    size="xs"
+                    maxW={16}
+                    value={input}
+                    min={1}
+                    onChange={e => {
+                      onChangeHandler(e, item.id)
+                    }}
+                  >
                     <NumberInputField />
                     <NumberInputStepper>
                       <NumberIncrementStepper />
                       <NumberDecrementStepper />
                     </NumberInputStepper>
                   </NumberInput>
+                </Td> */}
+                <Td isNumeric>₦{parseFloat(item.newPrice)}</Td>
+                {/* <Td isNumeric>
+                  ₦{parseFloat(item.newPrice) * parseFloat(item.qty)}
+                </Td> */}
+                <Td>
+                  <IconButton
+                    icon={<BsFillTrashFill />}
+                    aria-label="delete item"
+                    size="xs"
+                    _focus={{}}
+                    onClick={() => {
+                      RemoveFromCart(item.id)
+                    }}
+                  />
                 </Td>
-                <Td isNumeric>25.4</Td>
-                <Td isNumeric>25.4</Td>
               </Tr>
             )
           })}
@@ -108,27 +177,26 @@ export default function Component() {
             <Text m={4} fontWeight="500">
               Your Orders:
             </Text>
-            <Text m={4}>{3} Items</Text>
-          </HStack>
-          <HStack>
-            <Text m={4} fontWeight="500">
-              SubTotal:
-            </Text>
-            <Text m={4}>${300}</Text>
-          </HStack>
-          <HStack>
-            <Text m={4} fontWeight="500">
-              Delivery Fee:
-            </Text>
-            <Text m={4}>${300}</Text>
+            <Text m={4}>{totalItems} Item(s)</Text>
           </HStack>
           <HStack>
             <Text m={4} fontWeight="600">
               Total:
             </Text>
-            <Text m={4}>${300}</Text>
+            <Text m={4}>₦{totalPrice}.00</Text>
           </HStack>
-          <Button>Proceed to Checkout</Button>
+
+          <Button
+            fontSize={"sm"}
+            rounded={"md"}
+            _focus={{
+              bg: "gray.200",
+            }}
+            as={GatsbyLink}
+            to="/placeorder"
+          >
+            Proceed to Checkout
+          </Button>
         </Flex>
       </Flex>
     </Flex>

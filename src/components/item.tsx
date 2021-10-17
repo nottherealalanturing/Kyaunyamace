@@ -1,31 +1,27 @@
 import {
   Box,
-  Center,
-  useColorModeValue,
-  Heading,
-  Text,
-  Stack,
-  Image,
-  Img,
   Button,
-  Link as ChakraLink,
-  useDisclosure,
-} from "@chakra-ui/react"
-import React, { useState } from "react"
-import { Link as GatsbyLink, navigate } from "gatsby"
-import {
+  Center,
+  Flex,
+  Heading,
+  Image,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  Stack,
+  Text,
+  useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react"
-import Card from "./ProductCard/card"
-import { bindActionCreators } from "redux"
+import { Link as GatsbyLink, navigate } from "gatsby"
+import React from "react"
 import { useDispatch } from "react-redux"
+import { bindActionCreators } from "redux"
 import { actionCreators } from "../store/actions"
+import Card from "./ProductCard/card"
 
 const Item = ({
   id,
@@ -35,9 +31,9 @@ const Item = ({
   imagePath,
   category,
   description,
+  color,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [shirtColor, setShirtColor] = useState("black")
   const dispatch = useDispatch()
 
   const { AddToCart } = bindActionCreators(actionCreators, dispatch)
@@ -47,7 +43,7 @@ const Item = ({
       <Box
         role={"group"}
         p={6}
-        maxW={"330px"}
+        maxW={"260px"}
         w={"full"}
         bg={useColorModeValue("white", "gray.800")}
         boxShadow={"2xl"}
@@ -85,7 +81,8 @@ const Item = ({
             src={imagePath}
           />
         </Box>
-        <Stack pt={32} align={"center"}>
+
+        <Stack align={"center"}>
           <Text color={"gray.500"} fontSize={"sm"} textTransform={"uppercase"}>
             {category}
           </Text>
@@ -94,10 +91,10 @@ const Item = ({
           </Heading>
           <Stack direction={"row"} align={"center"}>
             <Text fontSize={"xl"} fontWeight={500}>
-              ${newPrice}
+              ₦{newPrice}
             </Text>
             <Text textDecoration={"line-through"} color={"gray.600"}>
-              ${oldPrice}
+              ₦{oldPrice}
             </Text>
           </Stack>
         </Stack>
@@ -138,7 +135,6 @@ const Item = ({
                     price={newPrice}
                     category={category}
                     imagePath={imagePath}
-                    color={shirtColor}
                   />
                 </ModalBody>
               </ModalContent>
@@ -162,7 +158,7 @@ const Item = ({
             }}
             onClick={() => {
               AddToCart(id)
-              /* navigate("/cart") */
+              navigate("/cart")
             }}
           >
             BUY

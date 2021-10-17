@@ -5,13 +5,12 @@ enum CART_ACTIONS {
   LOAD_CURRENT_ITEM = "LOAD_CURRENT_ITEM",
 }
 
-export const AddToCart = (itemID, shirtColor) => {
+export const AddToCart = itemID => {
   return dispatch => {
     dispatch({
       type: CART_ACTIONS.ADD_ITEM,
       payload: {
         id: itemID,
-        color: shirtColor,
       },
     })
   }

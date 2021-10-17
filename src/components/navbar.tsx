@@ -26,6 +26,7 @@ const NavLink = ({ link, children }: { children: ReactNode; link: any }) => (
       bg: useColorModeValue("gray.200", "gray.700"),
     }}
     to={`/${link}`}
+    _focus={{}}
   >
     {children}
   </ChakraLink>
@@ -51,7 +52,7 @@ export default function Simple() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={"center"}>
-            <ChakraLink as={GatsbyLink} to="/">
+            <ChakraLink as={GatsbyLink} to="/" cursor="pointer" _focus={{}}>
               <Logo />
             </ChakraLink>
           </HStack>
