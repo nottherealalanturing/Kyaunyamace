@@ -78,7 +78,7 @@ export default function Component() {
             </Box>
           </GridItem>
           <GridItem mt={[5, null, 0]} colSpan={{ md: 2 }}>
-            <CheckoutForm cart={cart} />
+            <CheckoutForm />
           </GridItem>
         </SimpleGrid>
       </Box>
