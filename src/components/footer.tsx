@@ -11,8 +11,8 @@ import {
 } from "@chakra-ui/react"
 import { FaFacebook } from "@react-icons/all-files/fa/FaFacebook"
 import { FaInstagram } from "@react-icons/all-files/fa/FaInstagram"
-import { FaTwitter } from "@react-icons/all-files/fa/FaTwitter"
 
+import { FaWhatsapp } from "@react-icons/all-files/fa/FaWhatsapp"
 import React, { ReactNode } from "react"
 import { title } from "../../data/data"
 import Logo from "./logo"
@@ -68,13 +68,22 @@ export default function SmallWithLogoLeft() {
         <Logo />
         <Text>© 2021 {title}. All rights reserved</Text>
         <Stack direction={"row"} spacing={6}>
-          <SocialButton label={"Twitter"} href={"#"}>
-            <FaTwitter />
+          <SocialButton
+            label={"Whatsapp"}
+            href={"https://wa.me/+2348091294278?text=Hi"}
+          >
+            <FaWhatsapp />
           </SocialButton>
-          <SocialButton label={"YouTube"} href={"#"}>
+          <SocialButton
+            label={"Facebook"}
+            href={"https://web.facebook.com/ZUWAGA1"}
+          >
             <FaFacebook />
           </SocialButton>
-          <SocialButton label={"Instagram"} href={"#"}>
+          <SocialButton
+            label={"Instagram"}
+            href={"http://instagram.com/kyaun_ya_mace_"}
+          >
             <FaInstagram />
           </SocialButton>
         </Stack>

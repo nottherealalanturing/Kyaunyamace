@@ -42,23 +42,16 @@ import { actionCreators } from "../store/actions"
 import { bindActionCreators } from "redux"
 import Checkout from "../components/Checkout"
 import CheckoutForm from "../components/checkoutform"
+import * as CurrencyFormat from "react-currency-format"
 
 export default function Component() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const dispatch = useDispatch()
-  const { RemoveFromCart, AdjustQuantity } = bindActionCreators(
-    actionCreators,
-    dispatch
-  )
+  const { RemoveFromCart } = bindActionCreators(actionCreators, dispatch)
   const [input, setInput] = useState(1)
   const [totalItems, setTotalItems] = useState(0)
   const [totalPrice, setTotalPrice] = useState(0)
   const cart = useSelector((state: any) => state.shop.cart)
-
-  const onChangeHandler = (e, itemId) => {
-    setInput(e)
-    AdjustQuantity(itemId, e)
-  }
 
   useEffect(() => {
     let price = 0
@@ -68,7 +61,7 @@ export default function Component() {
       price += parseFloat(item.newPrice)
     })
 
-    setTotalItems(items)
+    setTotalItems(cart.length)
     setTotalPrice(price)
   }, [
     cart,
@@ -141,7 +134,15 @@ export default function Component() {
                     </NumberInputStepper>
                   </NumberInput>
                 </Td> */}
-                <Td isNumeric>₦{parseFloat(item.newPrice)}</Td>
+                <Td isNumeric fontFamily="roboto">
+                  <CurrencyFormat
+                    value={item.newPrice}
+                    displayType={"text"}
+                    thousandSeparator={true}
+                    prefix={"₦"}
+                  />
+                </Td>
+                {/* ₦{parseFloat(item.newPrice)} */}
                 {/* <Td isNumeric>
                   ₦{parseFloat(item.newPrice) * parseFloat(item.qty)}
                 </Td> */}
@@ -180,10 +181,17 @@ export default function Component() {
             <Text m={4}>{totalItems} Item(s)</Text>
           </HStack>
           <HStack>
-            <Text m={4} fontWeight="600">
+            <Text m={4} fontWeight="600" fontFamily="roboto">
               Total:
             </Text>
-            <Text m={4}>₦{totalPrice}.00</Text>
+            <Text m={4}>
+              <CurrencyFormat
+                value={totalPrice}
+                displayType={"text"}
+                thousandSeparator={true}
+                prefix={"₦"}
+              />
+            </Text>
           </HStack>
 
           <Button

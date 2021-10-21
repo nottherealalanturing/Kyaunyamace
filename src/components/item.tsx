@@ -22,6 +22,7 @@ import { useDispatch } from "react-redux"
 import { bindActionCreators } from "redux"
 import { actionCreators } from "../store/actions"
 import Card from "./ProductCard/card"
+import * as CurrencyFormat from "react-currency-format"
 
 const Item = ({
   id,
@@ -83,18 +84,30 @@ const Item = ({
         </Box>
 
         <Stack align={"center"}>
-          <Text color={"gray.500"} fontSize={"sm"} textTransform={"uppercase"}>
+          <Text
+            color={"gray.500"}
+            fontSize={"sm"}
+            textTransform={"uppercase"}
+            fontFamily="roboto"
+          >
             {category}
           </Text>
-          <Heading fontSize={"2xl"} fontWeight={800} textTransform="uppercase">
+          <Heading
+            fontSize={"xl"}
+            fontWeight={800}
+            textTransform="uppercase"
+            fontFamily="roboto"
+          >
             {title}
           </Heading>
           <Stack direction={"row"} align={"center"}>
-            <Text fontSize={"xl"} fontWeight={500}>
-              ₦{newPrice}
-            </Text>
-            <Text textDecoration={"line-through"} color={"gray.600"}>
-              ₦{oldPrice}
+            <Text fontSize={"md"} fontWeight={500}>
+              <CurrencyFormat
+                value={newPrice}
+                displayType={"text"}
+                thousandSeparator={true}
+                prefix={"₦"}
+              />
             </Text>
           </Stack>
         </Stack>
@@ -125,7 +138,13 @@ const Item = ({
             >
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader>{title}</ModalHeader>
+                <ModalHeader
+                  textTransform="uppercase"
+                  fontFamily="roboto"
+                  fontWeight="900"
+                >
+                  {title}
+                </ModalHeader>
                 <ModalCloseButton />
                 <ModalBody p={4}>
                   <Card

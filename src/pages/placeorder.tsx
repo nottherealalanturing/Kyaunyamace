@@ -14,6 +14,7 @@ import { chakra } from "@chakra-ui/system"
 import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import CheckoutForm from "../components/checkoutform"
+import * as CurrencyFormat from "react-currency-format"
 
 export default function Component() {
   const [totalItems, setTotalItems] = useState(0)
@@ -28,7 +29,7 @@ export default function Component() {
       price += parseFloat(item.newPrice)
     })
 
-    setTotalItems(items)
+    setTotalItems(cart.length)
     setTotalPrice(price)
   }, [cart, totalItems, setTotalItems, totalPrice, setTotalPrice])
   return (
@@ -63,7 +64,14 @@ export default function Component() {
                   <Text my={4} fontWeight="600">
                     Total:
                   </Text>
-                  <Text>₦{totalPrice}.00</Text>
+                  <Text>
+                    <CurrencyFormat
+                      value={totalPrice}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      prefix={"₦"}
+                    />
+                  </Text>
                 </HStack>
 
                 <Text mt={4} fontSize="xs">
@@ -73,6 +81,12 @@ export default function Component() {
                 <Text mt={4} fontSize="xs">
                   2. Our agent will enquire if multiple quantities of a specific
                   product are needed.
+                </Text>
+                <Text mt={4} fontSize="xs">
+                  3. Place order, if prompted open link with whatsapp.
+                </Text>
+                <Text mt={4} fontSize="xs">
+                  4. Thanks for your patronage.
                 </Text>
               </Flex>
             </Box>

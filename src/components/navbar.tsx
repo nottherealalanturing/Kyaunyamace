@@ -76,7 +76,7 @@ export default function Simple() {
         {isOpen ? (
           <Box pb={4} display={{ md: "none" }}>
             <Stack as={"nav"} spacing={4}>
-              <NavLink link={"/"}>SHOP</NavLink>
+              <NavLink link={""}>SHOP</NavLink>
               <NavLink link={"contact"}>CONTACT</NavLink>
               <NavLink link={"cart"}>CHECKOUT</NavLink>
             </Stack>

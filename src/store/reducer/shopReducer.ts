@@ -9,36 +9,7 @@ enum CART_ACTIONS {
 
 const INITIAL_STATE = {
   products: shopData,
-  cart: [
-    /* {
-      id: 1,
-      imagePath: "/boostersm.jpg",
-      category: "Special Mix",
-      title: "Booster Special Mix",
-      oldPrice: "121",
-      newPrice: "90",
-      description: "Stimulates firmness and fullness of the saggy breasts.",
-    },
-    {
-      id: 2,
-      imagePath: "/booster xl.jpg",
-      category: "Special Mix",
-      title: "Booster XL",
-      oldPrice: "121",
-      newPrice: "90",
-      description:
-        "Stimulates firmness, fullness and increase in the size of the breast.",
-    },
-    {
-      id: 3,
-      imagePath: "/dawo da martaba.jpg",
-      category: "Aphrodisiac",
-      title: "Dawo da Martaba",
-      oldPrice: "121",
-      newPrice: "90",
-      description: "Sexual stimulant to boost ones sex drive.",
-    }, */
-  ],
+  cart: [],
   currentItem: null,
 }
 
@@ -56,9 +27,9 @@ export const ShopReducer = (state = INITIAL_STATE, action) => {
         ...state,
         cart: inCart
           ? state.cart.map(item =>
-              item.id === action.payload.id ? { ...item, qty: 1 } : item
+              item.id === action.payload.id ? { ...item /* qty: 1 */ } : item
             )
-          : [...state.cart, { ...item, qty: 1 }],
+          : [...state.cart, { ...item /* qty: 1 */ }],
       }
 
     case CART_ACTIONS.REMOVE_ITEM:
@@ -66,7 +37,7 @@ export const ShopReducer = (state = INITIAL_STATE, action) => {
         ...state,
         cart: state.cart.filter(item => item.id !== action.payload.id),
       }
-    case CART_ACTIONS.ADJUST_QUANTITY:
+    /* case CART_ACTIONS.ADJUST_QUANTITY:
       return {
         ...state,
         cart: state.cart.map(item =>
@@ -77,7 +48,7 @@ export const ShopReducer = (state = INITIAL_STATE, action) => {
               }
             : item
         ),
-      }
+      } */
     case CART_ACTIONS.LOAD_CURRENT_ITEM:
       return {
         ...state,

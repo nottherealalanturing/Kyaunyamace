@@ -40,7 +40,7 @@ export default function CheckoutForm() {
       onSubmit={(values, actions) => {
         setTimeout(() => {
           const order = getBasket(cart, values)
-          navigate(`https://wa.me/+2348106759059?text={${order}}`)
+          navigate(`https://wa.me/+2348091294278?text={${order}}`)
           actions.setSubmitting(false)
         }, 1000)
       }}

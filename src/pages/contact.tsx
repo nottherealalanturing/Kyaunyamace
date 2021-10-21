@@ -28,26 +28,23 @@ const Contact = () => {
         </Center>
 
         <Center my={4} w="100%" justifyContent="space-between">
-          <Link href={"config.social.instagram"}>
+          <Link
+            href={"http://instagram.com/kyaun_ya_mace_"}
+            _focus={{}}
+            textDecoration="none"
+          >
             <Instagram />
           </Link>
-          <Link href={"config.social.twitter"}>
-            <Twitter />
-          </Link>
-          <Link href={"config.social.facebook"}>
+          <Link href={"tel:+8024785022"}>
             <Phone />
           </Link>
-          <Link href={"config.social.facebook"}>
-            <Address />
-          </Link>
-          <Link href={"config.social.facebook"}>
-            <Email />
-          </Link>
 
-          <Link href={"config.social.facebook"}>
+          <Address />
+
+          <Link href={"https://web.facebook.com/ZUWAGA1"}>
             <Facebook />
           </Link>
-          <Link href={"config.social.whatsapp"}>
+          <Link href={"https://wa.me/+2348091294278?text=Hi"}>
             <Whatsapp />
           </Link>
         </Center>

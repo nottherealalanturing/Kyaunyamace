@@ -2,6 +2,7 @@ import {
   Button,
   Container,
   Flex,
+  Heading,
   Image,
   Text,
   useColorModeValue,
@@ -10,6 +11,7 @@ import React from "react"
 import { useDispatch } from "react-redux"
 import { bindActionCreators } from "redux"
 import { actionCreators } from "../../store/actions"
+import * as CurrencyFormat from "react-currency-format"
 
 const Card = ({ id, title, description, price, category, imagePath }) => {
   const dispatch = useDispatch()
@@ -28,21 +30,30 @@ const Card = ({ id, title, description, price, category, imagePath }) => {
         <Container>
           <Text
             fontSize="xs"
-            textTransform="uppercase"
             color={useColorModeValue("brand.600", "brand.400")}
+            textTransform={"uppercase"}
+            fontFamily="roboto"
           >
             {category}
           </Text>
-          <Text
+          <Heading
             color={useColorModeValue("gray.800", "white")}
-            fontWeight="800"
-            fontSize="2xl"
             _hover={{ color: "gray.600" }}
+            fontSize={"xl"}
+            fontWeight={800}
+            textTransform="uppercase"
+            fontFamily="roboto"
           >
             {title}
-          </Text>
-          <Text fontWeight="600" fontSize="lg">
-            Price: ₦{price}
+          </Heading>
+          <Text fontWeight="200" fontSize="lg" fontFamily="roboto">
+            Price:
+            <CurrencyFormat
+              value={price}
+              displayType={"text"}
+              thousandSeparator={true}
+              prefix={" ₦"}
+            />
           </Text>
           <Text
             fontSize="sm"

@@ -27,7 +27,7 @@ export const RemoveFromCart = itemID => {
   }
 }
 
-export const AdjustQuantity = (itemID, value) => {
+/* export const AdjustQuantity = (itemID, value) => {
   return dispatch => {
     dispatch({
       type: CART_ACTIONS.ADJUST_QUANTITY,
@@ -37,7 +37,7 @@ export const AdjustQuantity = (itemID, value) => {
       },
     })
   }
-}
+} */
 
 export const LoadCurrentItem = itemID => {
   return dispatch => {
