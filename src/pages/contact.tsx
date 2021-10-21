@@ -35,7 +35,7 @@ const Contact = () => {
           >
             <Instagram />
           </Link>
-          <Link href={"tel:+8024785022"}>
+          <Link href={"tel:+2348024785022"}>
             <Phone />
           </Link>
 
