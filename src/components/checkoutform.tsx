@@ -19,9 +19,9 @@ const getBasket = (cartObject, deets) => {
     basket.push(item.title)
   })
 
-  return `Order Name: ${deets.orderName} - Delivery Address: ${
+  return `1. Order Name: ${deets.orderName} - 2. Delivery Address: ${
     deets.shippingAddress
-  } - Products: ${basket.toString()}
+  } - 3. Products Ordered: ${basket.toString()}
       `
 }
 export default function CheckoutForm() {

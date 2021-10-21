@@ -50,6 +50,7 @@ export default function Simple() {
             aria-label={"Open Menu"}
             display={{ md: "none" }}
             onClick={isOpen ? onClose : onOpen}
+            _focus={{}}
           />
           <HStack spacing={8} alignItems={"center"}>
             <ChakraLink as={GatsbyLink} to="/" cursor="pointer" _focus={{}}>
